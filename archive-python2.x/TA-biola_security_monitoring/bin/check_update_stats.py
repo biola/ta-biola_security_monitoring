@@ -1,6 +1,6 @@
 #!$SPLUNK_HOME/bin/python
 
-# Copyright 2020, Biola University 
+# Copyright 2012, Biola University 
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -68,6 +68,7 @@ if distro == "Ubuntu":
 		for line in file:
 			numberOfUpdatesPendingReboot += 1
 
+# Future python 2.7+ version notes:
 # elif distro == "redhat":
 # 	securityCheckOutput = subprocess.check_output(["yum", "list", "updates", "--security"])
 elif distro == "redhat":
@@ -101,19 +102,19 @@ elif distro == "darwin":
 					numberOfPendingSecurityUpdates += 1
 					lineRegexObj = re.search('\\t([-._a-zA-Z0-9\s]+\([.0-9]+\)),\s', line)
 					try:
-						print((now.strftime("%Y-%m-%d %H:%M") +  " AvailableSecurityUpdate=\"" + lineRegexObj.group(1) + "\" Severity=recommended"))
+						print(now.strftime("%Y-%m-%d %H:%M") +  " AvailableSecurityUpdate=\"" + lineRegexObj.group(1) + "\" Severity=recommended")
 					except:
-						print((now.strftime("%Y-%m-%d %H:%M") +  " ERROR - exception caught while checking for Apple Software Updates (likely a regular expression miss"))
+						print(now.strftime("%Y-%m-%d %H:%M") +  " ERROR - exception caught while checking for Apple Software Updates (likely a regular expression miss")
 		else:
 			numberOfPendingSecurityUpdates = "ERROR - Number of missing updates not properly detected"
 
 
 #Output the results
 if distro == "Ubuntu":
-	print((now.strftime("%Y-%m-%d %H:%M") + " DaysSinceLastUpdateCheck=" + str(daysSinceLastUpdateCheck) + " DaysSinceLastUpgrade=" + str(daysSinceLastUpgrade) + " NumberOfPendingSecurityUpdates=" + str(numberOfPendingSecurityUpdates) + " NumberOfUpdatesPendingReboot=" + str(numberOfUpdatesPendingReboot)))
+	print(now.strftime("%Y-%m-%d %H:%M") + " DaysSinceLastUpdateCheck=" + str(daysSinceLastUpdateCheck) + " DaysSinceLastUpgrade=" + str(daysSinceLastUpgrade) + " NumberOfPendingSecurityUpdates=" + str(numberOfPendingSecurityUpdates) + " NumberOfUpdatesPendingReboot=" + str(numberOfUpdatesPendingReboot))
 elif distro == "redhat":
-	print((now.strftime("%Y-%m-%d %H:%M") + " NumberOfPendingSecurityUpdates=" + str(numberOfPendingSecurityUpdates)))
+	print(now.strftime("%Y-%m-%d %H:%M") + " NumberOfPendingSecurityUpdates=" + str(numberOfPendingSecurityUpdates))
 elif distro == "darwin":
-	print((now.strftime("%Y-%m-%d %H:%M") + " NumberOfPendingSecurityUpdates=" + str(numberOfPendingSecurityUpdates) + " NumberOfUpdatesPendingReboot=" + str(numberOfUpdatesPendingReboot)))
+	print(now.strftime("%Y-%m-%d %H:%M") + " NumberOfPendingSecurityUpdates=" + str(numberOfPendingSecurityUpdates) + " NumberOfUpdatesPendingReboot=" + str(numberOfUpdatesPendingReboot))
 else:
-	print((now.strftime("%Y-%m-%d %H:%M") + "ERROR - security update information not currently available on this platform"))
+	print(now.strftime("%Y-%m-%d %H:%M") + "ERROR - security update information not currently available on this platform")
